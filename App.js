@@ -1,20 +1,7 @@
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
+import PaletteList from "./src/screens/paletteList";
 
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Colorful Craft!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+  return <PaletteList />;
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
