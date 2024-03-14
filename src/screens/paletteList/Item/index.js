@@ -15,7 +15,11 @@ export default function Item({ name, author, colors, navigation }) {
       <TouchableOpacity
         style={styles.container}
         onPress={() =>
-          navigation.navigate("PalettePage", { name: name, author: author })
+          navigation.navigate("PalettePage", {
+            name: name,
+            author: author,
+            colors: colors,
+          })
         }
       >
         <View style={styles.texts}>

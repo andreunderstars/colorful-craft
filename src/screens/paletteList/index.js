@@ -9,7 +9,6 @@ import {
   Text,
 } from "react-native";
 import Item from "./Item";
-import Palette from "../Palette";
 
 const palettes = [
   {

@@ -11,7 +11,11 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Home">
         <Stack.Screen name="Home" component={PaletteList} />
-        <Stack.Screen name="PalettePage" component={Palette} />
+        <Stack.Screen
+          name="PalettePage"
+          component={Palette}
+          options={{ title: "" }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
