@@ -5,6 +5,8 @@ import {
   FlatList,
   SafeAreaView,
   StatusBar,
+  TouchableOpacity,
+  Text,
 } from "react-native";
 import Item from "./Item";
 
@@ -114,12 +116,12 @@ const palettes = [
   },
 ];
 
-export default function PaletteList() {
+export default function PaletteList({ navigation }) {
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar />
       <View style={styles.container}>
-        <View style={styles.header}></View>
+        {/* <View style={styles.header}></View> */}
         <FlatList
           data={palettes}
           renderItem={(item) => (
@@ -127,6 +129,7 @@ export default function PaletteList() {
               name={item.item.name}
               author={item.item.author}
               colors={item.item.colors}
+              navigation={navigation}
             />
           )}
           keyExtractor={({ id }) => String(id)}

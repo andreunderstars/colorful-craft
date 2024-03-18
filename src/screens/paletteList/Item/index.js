@@ -1,14 +1,8 @@
 import React from "react";
-import {
-  TouchableOpacity,
-  StyleSheet,
-  Text,
-  View,
-  FlatList,
-} from "react-native";
+import { TouchableOpacity, StyleSheet, Text, View } from "react-native";
 import Colors from "./Colors";
 
-export default function Item({ name, author, colors }) {
+export default function Item({ name, author, colors, navigation }) {
   const oversized = colors.length > 24;
   const firstLine = colors.slice(0, colors.length / 3);
   const secondLine = colors.slice(
@@ -18,7 +12,16 @@ export default function Item({ name, author, colors }) {
   const thirdLine = colors.slice((2 * colors.length) / 3 + 1, colors.length);
   return (
     <>
-      <TouchableOpacity style={styles.container}>
+      <TouchableOpacity
+        style={styles.container}
+        onPress={() =>
+          navigation.navigate("PalettePage", {
+            name: name,
+            author: author,
+            colors: colors,
+          })
+        }
+      >
         <View style={styles.texts}>
           <Text style={styles.name}>{name.toUpperCase()}</Text>
           <Text style={styles.user}>{author}</Text>
