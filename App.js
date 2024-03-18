@@ -1,6 +1,6 @@
 import React from "react";
 import PaletteList from "./src/screens/paletteList";
-import Palette from "./src/screens/Palette";
+import Palette from "./src/screens/palette";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 

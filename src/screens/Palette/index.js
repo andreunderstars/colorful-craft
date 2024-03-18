@@ -22,7 +22,6 @@ export default function Palette({ route, navigation }) {
     ncol = 4;
     size = 82.5;
   }
-  console.log(size);
 
   return (
     <View style={styles.container}>
