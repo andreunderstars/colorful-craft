@@ -10,11 +10,17 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Home">
-        <Stack.Screen name="Home" component={PaletteList} />
+        <Stack.Screen
+          name="Colorful Craft"
+          component={PaletteList}
+          options={{
+            headerStyle: { backgroundColor: "#BC9CC7" },
+          }}
+        />
         <Stack.Screen
           name="PalettePage"
           component={Palette}
-          options={{ title: "" }}
+          options={{ title: "", headerStyle: { backgroundColor: "#BC9CC7" } }}
         />
       </Stack.Navigator>
     </NavigationContainer>
