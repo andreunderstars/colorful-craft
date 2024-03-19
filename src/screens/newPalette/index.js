@@ -1,5 +1,13 @@
 import React from "react";
-import { Text, View, StyleSheet, Button, Modal, Pressable } from "react-native";
+import {
+  Text,
+  View,
+  StyleSheet,
+  Button,
+  Modal,
+  Pressable,
+  FlatList,
+} from "react-native";
 import { useState } from "react";
 import ColorPicker, {
   Panel1,
@@ -8,34 +16,57 @@ import ColorPicker, {
 } from "reanimated-color-picker";
 
 export default function NewPalette() {
+  const initialColors = [
+    { id: 0, color: "#000000" },
+    { id: 1, color: "#575757" },
+    { id: 2, color: "#b3b3b3" },
+    { id: 3, color: "#ededed" },
+    { id: 4, color: "#abcdef" },
+    { id: 5, color: "#abcdef" },
+    { id: 6, color: "#abcdef" },
+  ];
+  const [colors, setColors] = useState(initialColors);
+  const [index, setIndex] = useState(0);
+
   const [showModal, setShowModal] = useState(false);
   const [color1, setColor1] = useState("#000000");
-  const [color2, setColor2] = useState("#000000");
-  const [color3, setColor3] = useState("#000000");
-  const [color4, setColor4] = useState("#000000");
 
-  const onSelectColor1 = ({ hex }) => {
-    console.log(hex);
-    setColor1(hex);
+  function handleChangeColors(hex, index) {
+    const NextColors = colors.map((c, i) => {
+      if (c.id === index) {
+        return { id: c.id, color: hex };
+      } else {
+        return c;
+      }
+    });
+    setColors(NextColors);
+  }
+
+  const onSelectColor = ({ hex }) => {
+    handleChangeColors(hex, index);
   };
+
   return (
     <View style={styles.container}>
       <View style={styles.rectangle}>
-        <Pressable
-          style={[styles.button, { backgroundColor: color1 }]}
-          onPress={() => setShowModal(true)}
-        />
-        <Pressable
-          style={[styles.button, { backgroundColor: color2 }]}
-          onPress={() => setShowModal(true)}
-        />
-        <Pressable
-          style={[styles.button, { backgroundColor: color3 }]}
-          onPress={() => setShowModal(true)}
-        />
-        <Pressable
-          style={[styles.button, { backgroundColor: color4 }]}
-          onPress={() => setShowModal(true)}
+        <FlatList
+          key={"_"}
+          data={colors}
+          numColumns={5}
+          renderItem={(item) => (
+            <Pressable
+              key={item.item.id}
+              style={[
+                styles.button,
+                { backgroundColor: item.item.color, margin: 5 },
+              ]}
+              onPress={() => {
+                setShowModal(true);
+                setIndex(item.item.id);
+              }}
+            />
+          )}
+          keyExtractor={({ id }) => String(id)}
         />
       </View>
 
@@ -43,10 +74,9 @@ export default function NewPalette() {
         <View style={styles.modalView}>
           <ColorPicker
             style={{ width: "70%" }}
-            value={color1}
-            onComplete={onSelectColor1}
+            value={colors[index].color}
+            onComplete={onSelectColor}
           >
-            <Preview />
             <Panel1 />
             <HueSlider />
           </ColorPicker>
