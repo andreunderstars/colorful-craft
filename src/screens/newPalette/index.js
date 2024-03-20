@@ -1,35 +1,33 @@
 import React from "react";
 import {
-  Text,
   View,
   StyleSheet,
   Button,
   Modal,
   Pressable,
   FlatList,
+  Text,
 } from "react-native";
 import { useState } from "react";
-import ColorPicker, {
-  Panel1,
-  Preview,
-  HueSlider,
-} from "reanimated-color-picker";
+import ColorPicker, { Panel1, HueSlider } from "reanimated-color-picker";
+import ExamplePicture from "./ExamplePicture";
 
 export default function NewPalette() {
   const initialColors = [
-    { id: 0, color: "#000000" },
-    { id: 1, color: "#575757" },
-    { id: 2, color: "#b3b3b3" },
-    { id: 3, color: "#ededed" },
-    { id: 4, color: "#abcdef" },
-    { id: 5, color: "#abcdef" },
-    { id: 6, color: "#abcdef" },
+    { id: 0, color: "#0d2b45" },
+    { id: 1, color: "#203c56" },
+    { id: 2, color: "#544e68" },
+    { id: 3, color: "#8d697a" },
+    { id: 4, color: "#d08159" },
+    { id: 5, color: "#ffaa5e" },
+    { id: 6, color: "#ffd4a3" },
+    { id: 7, color: "#ffecd6" },
   ];
   const [colors, setColors] = useState(initialColors);
   const [index, setIndex] = useState(0);
 
   const [showModal, setShowModal] = useState(false);
-  const [color1, setColor1] = useState("#000000");
+  const [pressed, setPressed] = useState(false);
 
   function handleChangeColors(hex, index) {
     const NextColors = colors.map((c, i) => {
@@ -48,18 +46,25 @@ export default function NewPalette() {
 
   return (
     <View style={styles.container}>
+      <ExamplePicture
+        color1={colors[0].color}
+        color2={colors[1].color}
+        color3={colors[2].color}
+        color4={colors[3].color}
+        color5={colors[4].color}
+        color6={colors[5].color}
+        color7={colors[6].color}
+        color8={colors[7].color}
+      />
       <View style={styles.rectangle}>
         <FlatList
           key={"_"}
           data={colors}
-          numColumns={5}
+          numColumns={4}
           renderItem={(item) => (
             <Pressable
               key={item.item.id}
-              style={[
-                styles.button,
-                { backgroundColor: item.item.color, margin: 5 },
-              ]}
+              style={[styles.pressable, { backgroundColor: item.item.color }]}
               onPress={() => {
                 setShowModal(true);
                 setIndex(item.item.id);
@@ -70,17 +75,32 @@ export default function NewPalette() {
         />
       </View>
 
+      <View style={styles.button}>
+        <Pressable
+          style={styles.buttonTop}
+          onPressIn={() => setPressed(true)}
+          onPressOut={() => setPressed(false)}
+        >
+          <Text style={styles.text}>CREATE PALETTE</Text>
+        </Pressable>
+        {!pressed && <View style={styles.buttonSide} />}
+      </View>
+
       <Modal visible={showModal} transparent={true} animationType="slide">
         <View style={styles.modalView}>
           <ColorPicker
-            style={{ width: "70%" }}
+            style={[styles.colorPicker, { width: "70%" }]}
             value={colors[index].color}
             onComplete={onSelectColor}
           >
             <Panel1 />
             <HueSlider />
           </ColorPicker>
-          <Button title="Ok" onPress={() => setShowModal(false)} />
+          <Button
+            color="#C6AACF"
+            title="Ok"
+            onPress={() => setShowModal(false)}
+          />
         </View>
       </Modal>
     </View>
@@ -90,27 +110,63 @@ export default function NewPalette() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
+    justifyContent: "flex-start",
     alignItems: "center",
+    paddingTop: 64,
+    gap: 44,
+    backgroundColor: "#ffffff",
+  },
+  image: {
+    backgroundColor: "#000000",
   },
   rectangle: {
-    flexDirection: "row",
-    justifyContent: "center",
     alignItems: "center",
-    width: 276,
-    height: 120,
+    justifyContent: "center",
+    height: 130,
+    padding: 8,
+    borderRadius: 8,
     backgroundColor: "#C6AACF",
-    gap: 20,
   },
-  button: {
+  centered: {
+    height: 80,
+  },
+  pressable: {
     width: 40,
     height: 40,
-    backgroundColor: "#000000",
+    borderWidth: 2,
+    borderColor: "#67536e",
+    borderRadius: 4,
+    margin: 8,
   },
   modalView: {
     flex: 1,
     justifyContent: "flex-end",
     alignItems: "center",
-    marginTop: 500,
+    marginBottom: 20,
+    gap: 10,
+  },
+  colorPicker: {
+    gap: 10,
+  },
+  button: {
+    height: 94,
+    justifyContent: "flex-end",
+  },
+  buttonTop: {
+    width: 300,
+    height: 70,
+    // borderTopLeftRadius: 8,
+    // borderTopRightRadius: 8,
+    backgroundColor: "#C6AACF",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  buttonSide: {
+    width: 300,
+    height: 24,
+    backgroundColor: "#9E71AE",
+  },
+  text: {
+    fontSize: 32,
   },
 });

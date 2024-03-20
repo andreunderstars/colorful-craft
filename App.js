@@ -28,7 +28,10 @@ export default function App() {
         <Stack.Screen
           name="NewPalette"
           component={NewPalette}
-          options={{ title: "New Palette" }}
+          options={{
+            title: "New Palette",
+            headerStyle: { backgroundColor: bg },
+          }}
         />
       </Stack.Navigator>
     </NavigationContainer>
