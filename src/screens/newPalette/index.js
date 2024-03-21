@@ -7,6 +7,7 @@ import {
   Pressable,
   FlatList,
   Text,
+  TextInput,
 } from "react-native";
 import { useState } from "react";
 import ColorPicker, { Panel1, HueSlider } from "reanimated-color-picker";
@@ -24,9 +25,12 @@ export default function NewPalette() {
     { id: 7, color: "#ffecd6" },
   ];
   const [colors, setColors] = useState(initialColors);
+  const [name, setName] = useState("");
+  const [author, setAuthor] = useState("");
   const [index, setIndex] = useState(0);
 
-  const [showModal, setShowModal] = useState(false);
+  const [showColorModal, setShowColorModal] = useState(false);
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
   const [pressed, setPressed] = useState(false);
 
   function handleChangeColors(hex, index) {
@@ -66,7 +70,7 @@ export default function NewPalette() {
               key={item.item.id}
               style={[styles.pressable, { backgroundColor: item.item.color }]}
               onPress={() => {
-                setShowModal(true);
+                setShowColorModal(true);
                 setIndex(item.item.id);
               }}
             />
@@ -80,13 +84,14 @@ export default function NewPalette() {
           style={styles.buttonTop}
           onPressIn={() => setPressed(true)}
           onPressOut={() => setPressed(false)}
+          onPress={() => setShowConfirmModal(true)}
         >
           <Text style={styles.text}>CREATE PALETTE</Text>
         </Pressable>
         {!pressed && <View style={styles.buttonSide} />}
       </View>
 
-      <Modal visible={showModal} transparent={true} animationType="slide">
+      <Modal visible={showColorModal} transparent={true} animationType="slide">
         <View style={styles.modalView}>
           <ColorPicker
             style={[styles.colorPicker, { width: "70%" }]}
@@ -99,8 +104,41 @@ export default function NewPalette() {
           <Button
             color="#C6AACF"
             title="Ok"
-            onPress={() => setShowModal(false)}
+            onPress={() => setShowColorModal(false)}
           />
+        </View>
+      </Modal>
+
+      <Modal visible={showConfirmModal} transparent={true} animationType="fade">
+        <View style={styles.confirmModal}>
+          <View style={styles.confirmModalView}>
+            <Text style={styles.inputText}>Name: </Text>
+            <TextInput
+              style={styles.input}
+              onChangeText={(text) => {
+                setName(text);
+              }}
+            />
+            <Text style={styles.inputText}>Author: </Text>
+            <TextInput
+              style={styles.input}
+              onChangeText={(text) => {
+                setAuthor(text);
+              }}
+            />
+            <View style={styles.modalButtons}>
+              <Button
+                color="#eb4d4d"
+                title="Cancel"
+                onPress={() => setShowConfirmModal(false)}
+              />
+              <Button
+                color="#9E71AE"
+                title="Confirm"
+                onPress={() => setShowConfirmModal(false)}
+              />
+            </View>
+          </View>
         </View>
       </Modal>
     </View>
@@ -112,8 +150,8 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "flex-start",
     alignItems: "center",
-    paddingTop: 64,
-    gap: 44,
+    paddingTop: 44,
+    gap: 64,
     backgroundColor: "#ffffff",
   },
   image: {
@@ -168,5 +206,47 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 32,
+  },
+  confirmModal: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  confirmModalView: {
+    margin: 20,
+    backgroundColor: "white",
+    borderRadius: 20,
+    padding: 35,
+    justifyContent: "center",
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+    width: 330,
+  },
+  modalButtons: {
+    flexDirection: "row",
+    gap: 120,
+    marginTop: 16,
+  },
+  inputText: {
+    fontSize: 20,
+    fontWeight: "bold",
+  },
+  input: {
+    width: 300,
+    height: 40,
+    padding: 10,
+    margin: 4,
+    borderWidth: 2,
+    borderRadius: 8,
+    backgroundColor: "#e7d3ed",
+    borderColor: "#67536e",
   },
 });
