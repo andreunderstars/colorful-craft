@@ -8,12 +8,14 @@ import {
   FlatList,
   Text,
   TextInput,
+  Alert,
 } from "react-native";
 import { useState } from "react";
 import ColorPicker, { Panel1, HueSlider } from "reanimated-color-picker";
 import ExamplePicture from "./ExamplePicture";
+import { createPalette } from "../../services/palettes";
 
-export default function NewPalette() {
+export default function NewPalette({ navigation }) {
   const initialColors = [
     { id: 0, color: "#0d2b45" },
     { id: 1, color: "#203c56" },
@@ -47,6 +49,17 @@ export default function NewPalette() {
   const onSelectColor = ({ hex }) => {
     handleChangeColors(hex, index);
   };
+
+  async function create() {
+    const response = await createPalette(name, author, colors);
+
+    if (response == "success") {
+      Alert.alert("New palette created with success!");
+      navigation.navigate("Colorful Craft");
+    } else {
+      Alert.alert("Error");
+    }
+  }
 
   return (
     <View style={styles.container}>
@@ -132,11 +145,7 @@ export default function NewPalette() {
                 title="Cancel"
                 onPress={() => setShowConfirmModal(false)}
               />
-              <Button
-                color="#9E71AE"
-                title="Confirm"
-                onPress={() => setShowConfirmModal(false)}
-              />
+              <Button color="#9E71AE" title="Confirm" onPress={create} />
             </View>
           </View>
         </View>
