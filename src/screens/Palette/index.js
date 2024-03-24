@@ -38,7 +38,7 @@ export default function Palette({ route, navigation }) {
               style={[
                 styles.centralized,
                 {
-                  backgroundColor: item.item,
+                  backgroundColor: item.item.color,
                   width: size,
                   height: size,
                 },
@@ -46,12 +46,12 @@ export default function Palette({ route, navigation }) {
             >
               <Text
                 style={
-                  luminosity(item.item) > 186
+                  luminosity(item.item.color) > 186
                     ? styles.hexBlack
                     : styles.hexWhite
                 }
               >
-                {item.item}
+                {item.item.color}
               </Text>
             </View>
           )}
