@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
   View,
@@ -9,8 +9,9 @@ import {
   Text,
 } from "react-native";
 import Item from "./Item";
+import api from "../../services/api";
 
-const palettes = [
+const palettes0 = [
   {
     id: 1,
     name: "hilda",
@@ -128,6 +129,21 @@ const palettes = [
 ];
 
 export default function PaletteList({ navigation }) {
+  const [palettes, setPalettes] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await api.get("/palettes");
+        setPalettes(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchData();
+  }, [api]);
+
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar />
