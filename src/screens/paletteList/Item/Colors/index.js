@@ -10,11 +10,12 @@ export default function Colors({ colors }) {
         <View
           style={{
             flex: 1,
-            backgroundColor: item.item,
+            backgroundColor: item.item.color,
             width: 330 / colors.length,
           }}
         ></View>
       )}
+      keyExtractor={({ id }) => String(id)}
     />
   );
 }
