@@ -189,6 +189,7 @@ const styles = StyleSheet.create({
   button: {
     height: 94,
     justifyContent: "flex-end",
+    marginTop: 48,
   },
   buttonTop: {
     width: 300,
@@ -211,6 +212,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
   },
   confirmModalView: {
     margin: 20,
