@@ -2,7 +2,7 @@ import React from "react";
 import { TouchableOpacity, StyleSheet, Text, View } from "react-native";
 import Colors from "./Colors";
 
-export default function Item({ name, author, colors, navigation }) {
+export default function Item({ id, name, author, colors, navigation }) {
   const oversized = colors.length > 24;
   const firstLine = colors.slice(0, colors.length / 3);
   const secondLine = colors.slice(
@@ -16,8 +16,9 @@ export default function Item({ name, author, colors, navigation }) {
         style={styles.container}
         onPress={() =>
           navigation.navigate("PalettePage", {
-            name: name,
-            author: author,
+            id: id,
+            initialName: name,
+            initialAuthor: author,
             colors: colors,
           })
         }

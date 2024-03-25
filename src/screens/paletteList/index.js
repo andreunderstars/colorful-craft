@@ -153,6 +153,7 @@ export default function PaletteList({ navigation }) {
           data={palettes}
           renderItem={(item) => (
             <Item
+              id={item.item.id}
               name={item.item.name}
               author={item.item.author}
               colors={item.item.colors}

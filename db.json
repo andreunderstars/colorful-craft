@@ -1,7 +1,7 @@
 {
   "palettes": [
     {
-      "id": 1,
+      "id": "1",
       "name": "hilda",
       "author": "unfamiliarghost",
       "colors": [
@@ -44,7 +44,7 @@
       ]
     },
     {
-      "id": 2,
+      "id": "2",
       "name": "miku",
       "author": "user1234",
       "colors": [
@@ -67,7 +67,7 @@
       ]
     },
     {
-      "id": 3,
+      "id": "3",
       "name": "light & dark",
       "author": "Luis Miguel Maldonado",
       "colors": [
@@ -106,7 +106,7 @@
       ]
     },
     {
-      "id": 4,
+      "id": "4",
       "name": "sage57",
       "author": "strawbrysage",
       "colors": [
@@ -325,7 +325,7 @@
       ]
     },
     {
-      "id": 5,
+      "id": "5",
       "name": "twilight 5",
       "author": "Star",
       "colors": [
@@ -348,45 +348,6 @@
         {
           "id": 4,
           "color": "#292831"
-        }
-      ]
-    },
-    {
-      "id": "36ec",
-      "name": "Teste",
-      "author": "unfamiliarghost ",
-      "colors": [
-        {
-          "id": 0,
-          "color": "#751440"
-        },
-        {
-          "id": 1,
-          "color": "#66787a"
-        },
-        {
-          "id": 2,
-          "color": "#9bbaaa"
-        },
-        {
-          "id": 3,
-          "color": "#a45b7e"
-        },
-        {
-          "id": 4,
-          "color": "#d19f86"
-        },
-        {
-          "id": 5,
-          "color": "#c2f589"
-        },
-        {
-          "id": 6,
-          "color": "#cdffbe"
-        },
-        {
-          "id": 7,
-          "color": "#d6ffef"
         }
       ]
     }
