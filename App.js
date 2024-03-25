@@ -33,7 +33,7 @@ function NewPaletteStackScreen() {
   return (
     <NewPaletteStack.Navigator>
       <NewPaletteStack.Screen
-        name="NewPalette"
+        name="NewPaletteStack"
         component={NewPalette}
         options={{
           title: "New Palette",
