@@ -189,8 +189,10 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "flex-end",
     alignItems: "center",
-    marginBottom: 20,
+    paddingBottom: 20,
+    marginTop: 440,
     gap: 10,
+    backgroundColor: "white",
   },
   colorPicker: {
     gap: 10,
