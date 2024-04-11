@@ -4,11 +4,13 @@ import {
   StyleSheet,
   FlatList,
   View,
+  ScrollView,
   TouchableOpacity,
   Modal,
   Button,
   TextInput,
   Alert,
+  SafeAreaView,
 } from "react-native";
 import { editPalette, deletePalette } from "../../services/palettes";
 
@@ -64,108 +66,111 @@ export default function Palette({ route, navigation }) {
   }
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>{initialName.toUpperCase()}</Text>
-      <Text style={styles.author}>by {initialAuthor}</Text>
-      <View style={styles.centralized}>
-        <FlatList
-          style={styles.border}
-          data={colors}
-          numColumns={ncol}
-          showsVerticalScrollIndicator={false}
-          renderItem={(item) => (
-            <View
-              style={[
-                styles.centralized,
-                {
-                  backgroundColor: item.item.color,
-                  width: size,
-                  height: size,
-                },
-              ]}
-            >
-              <Text
-                style={
-                  luminosity(item.item.color) > 186
-                    ? styles.hexBlack
-                    : styles.hexWhite
-                }
+    <ScrollView>
+      <View style={styles.container}>
+        <Text style={styles.title}>{initialName.toUpperCase()}</Text>
+        <Text style={styles.author}>by {initialAuthor}</Text>
+        <View style={styles.centralized}>
+          <FlatList
+            style={styles.border}
+            data={colors}
+            numColumns={ncol}
+            showsVerticalScrollIndicator={false}
+            scrollEnabled={false}
+            renderItem={(item) => (
+              <View
+                style={[
+                  styles.centralized,
+                  {
+                    backgroundColor: item.item.color,
+                    width: size,
+                    height: size,
+                  },
+                ]}
               >
-                {item.item.color}
-              </Text>
-            </View>
-          )}
-          keyExtractor={(item) => colors.indexOf(item)}
-        />
-      </View>
-      <View style={styles.buttons}>
-        <TouchableOpacity
-          style={[styles.button, { backgroundColor: "#9E71AE" }]}
-          onPress={() => setShowEditModal(true)}
-        >
-          <Text style={styles.buttonText}>EDIT</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={[styles.button, { backgroundColor: "#eb4d4d" }]}
-          onPress={() => setShowDeleteModal(true)}
-        >
-          <Text style={styles.buttonText}>DELETE</Text>
-        </TouchableOpacity>
-      </View>
-      {/* edit modal */}
-      <Modal visible={showEditModal} transparent={true}>
-        <View style={styles.deleteModal}>
-          <View style={[styles.deleteModalView, { gap: 0 }]}>
-            <Text style={styles.inputText}>Name: </Text>
-            <TextInput
-              value={name}
-              style={styles.input}
-              onChangeText={(text) => {
-                setName(text);
-              }}
-            />
-            <Text style={styles.inputText}>Author: </Text>
-            <TextInput
-              value={author}
-              style={styles.input}
-              onChangeText={(text) => {
-                setAuthor(text);
-              }}
-            />
-            <View style={[styles.buttons, { gap: 120, marginTop: 16 }]}>
-              <Button
-                color="#eb4d4d"
-                title="Cancel"
-                onPress={() => {
-                  setShowEditModal(false);
-                  setName(initialName);
-                  setAuthor(initialAuthor);
+                <Text
+                  style={
+                    luminosity(item.item.color) > 186
+                      ? styles.hexBlack
+                      : styles.hexWhite
+                  }
+                >
+                  {item.item.color}
+                </Text>
+              </View>
+            )}
+            keyExtractor={(item) => colors.indexOf(item)}
+          />
+        </View>
+        <View style={styles.buttons}>
+          <TouchableOpacity
+            style={[styles.button, { backgroundColor: "#9E71AE" }]}
+            onPress={() => setShowEditModal(true)}
+          >
+            <Text style={styles.buttonText}>EDIT</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={[styles.button, { backgroundColor: "#eb4d4d" }]}
+            onPress={() => setShowDeleteModal(true)}
+          >
+            <Text style={styles.buttonText}>DELETE</Text>
+          </TouchableOpacity>
+        </View>
+        {/* edit modal */}
+        <Modal visible={showEditModal} transparent={true}>
+          <View style={styles.deleteModal}>
+            <View style={[styles.deleteModalView, { gap: 0 }]}>
+              <Text style={styles.inputText}>Name: </Text>
+              <TextInput
+                value={name}
+                style={styles.input}
+                onChangeText={(text) => {
+                  setName(text);
                 }}
               />
-              <Button color="#9E71AE" title="Confirm" onPress={edit} />
-            </View>
-          </View>
-        </View>
-      </Modal>
-      {/* delete modal */}
-      <Modal visible={showDeleteModal} transparent={true}>
-        <View style={styles.deleteModal}>
-          <View style={styles.deleteModalView}>
-            <Text style={{ fontSize: 16 }}>
-              Are you sure you want to delete {name}?
-            </Text>
-            <View style={[styles.buttons, { gap: 120 }]}>
-              <Button
-                color="#eb4d4d"
-                title="Cancel"
-                onPress={() => setShowDeleteModal(false)}
+              <Text style={styles.inputText}>Author: </Text>
+              <TextInput
+                value={author}
+                style={styles.input}
+                onChangeText={(text) => {
+                  setAuthor(text);
+                }}
               />
-              <Button color="#9E71AE" title="Confirm" onPress={erase} />
+              <View style={[styles.buttons, { gap: 120, marginTop: 16 }]}>
+                <Button
+                  color="#eb4d4d"
+                  title="Cancel"
+                  onPress={() => {
+                    setShowEditModal(false);
+                    setName(initialName);
+                    setAuthor(initialAuthor);
+                  }}
+                />
+                <Button color="#9E71AE" title="Confirm" onPress={edit} />
+              </View>
             </View>
           </View>
-        </View>
-      </Modal>
-    </View>
+        </Modal>
+        {/* delete modal */}
+        <Modal visible={showDeleteModal} transparent={true}>
+          <View style={styles.deleteModal}>
+            <View style={styles.deleteModalView}>
+              <Text style={{ fontSize: 16 }}>
+                Are you sure you want to delete {name}?
+              </Text>
+              <View style={[styles.buttons, { gap: 120 }]}>
+                <Button
+                  color="#eb4d4d"
+                  title="Cancel"
+                  onPress={() => setShowDeleteModal(false)}
+                />
+                <Button color="#9E71AE" title="Confirm" onPress={erase} />
+              </View>
+            </View>
+          </View>
+        </Modal>
+      </View>
+    </ScrollView>
   );
 }
 
@@ -194,6 +199,7 @@ const styles = StyleSheet.create({
   border: {
     borderWidth: 3,
     backgroundColor: "#000000",
+    // height: 500,
   },
   buttons: {
     flexDirection: "row",
