@@ -142,7 +142,7 @@ export default function PaletteList({ navigation }) {
     };
 
     fetchData();
-  }, [api]);
+  }, [palettes]);
 
   return (
     <SafeAreaView style={styles.container}>
